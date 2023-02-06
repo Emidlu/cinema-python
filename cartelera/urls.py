@@ -30,8 +30,7 @@ urlpatterns = [
     path('cartelera/', auth_required_pro, kwargs={'funcion': cartelera, 'auth':'anybody' ,'view':'none'}),
     path('estrenos/', auth_required_pro, kwargs={'funcion': estrenos, 'auth':'anybody' ,'view':'none'}),
 
-    # path('funcion/funciones/', auth_required_pro, kwargs={'funcion': mostrarFunciones, 'auth':'user' ,'view':'none'}),
-    path('funcion/funciones/', mostrarFunciones),
+    path('funcion/funciones/', auth_required_pro, kwargs={'funcion': mostrarFunciones, 'auth':'user' ,'view':'none'}),
     path('funcion/butacas/', auth_required_pro, kwargs={'funcion': mostrarButacas, 'auth':'user' ,'view':'none'}),
     path('entradas/', auth_required_pro, kwargs={'funcion': entrada, 'auth':'user' ,'view':'none'}),
     # path('funcion/butacas/', mostrarButacas),

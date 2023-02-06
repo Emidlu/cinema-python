@@ -6,14 +6,11 @@ class Database():
     #creamos el constructor con la bbdd elegida a través de pymysql
     def __init__(self):
         self.connection = pymysql.connect(
-        # host='localhost',
-        # user='root',
-        # password='1234',
-        # db='cartelera'
         host=config('MYSQL_HOST'),
         user=config('MYSQL_USER'),
         password=config('MYSQL_PASSWORD'),
-        db=config('MYSQL_DB')
+        db=config('MYSQL_DB'),
+        port=int(config('MYSQL_PORT'))
     )
     #chequeo que la bbdd este en funcionamiento, sino no se conecta
     #y lanza un error (no llega al print)
