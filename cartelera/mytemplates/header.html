@@ -1,0 +1,60 @@
+<header>
+    <div class="banner-top">
+        <img class="banner-top-image" alt="top banner" src="/static/images/banner_encabezado.png">
+    </div>
+    <!-- <h1 style="height: 30px;">{{user_id}}</h1> -->
+
+    <div class="bd-navbar">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+
+
+            <div class="collapse navbar-collapse" id="navbarColor01">
+
+                <div style="width: 290.2px;"> </div>
+
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">HOME <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cartelera">CARTELERA</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/estrenos">ESTRENOS</a>
+                    </li>
+                </ul>
+
+                {% if user_id %}
+                <div class="botones-navbar">
+                    {% if user_admin %}
+                    <form action="/admin" method="get" class="contenedor-icono-usuario boton-navbar">
+                        <button class="fa-solid fa-screwdriver-wrench fa-2x icono-config" ></button>
+                    </form>
+                    {% endif %}
+                    <form action="/user" method="get" class="contenedor-icono-usuario boton-navbar">
+                    <button class="fa-solid fa-user fa-2x icono-usuario" style="color: #de9a2d;"></button>
+                    </form>
+                    <form action="/cerrarsesion/" method="post" class="boton-navbar">{% csrf_token %}
+                        <button type="submit" class="btn btn-secondary">Cerrar Sesion</button>
+                    </form>
+                </div>
+
+                {% else %}
+                <div class="botones-navbar">
+                    <form action="/register/" method="get" class="boton-navbar">
+                        <button class="btn btn-secondary" type="submit">Registrarse</button>
+                    </form>
+                    <form action="/login/" method="get" class="boton-navbar">
+                        <button class="btn btn-primary" type="submit">Iniciar sesion</button>
+                    </form>
+                </div>
+                {% endif %}
+
+
+            </div>
+
+        </nav>
+
+    </div>
+</header>
