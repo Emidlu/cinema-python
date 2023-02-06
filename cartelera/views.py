@@ -442,50 +442,94 @@ def auth_required_pro(request, **kwargs):
 
     auth = kwargs["auth"]
 
-    match auth:
-        case "user":
-            try:
-                user_id = request.session["user_id"]
-                funcion = kwargs["funcion"]
-                return funcion(request)
-            except:
-                return redirect("/login")
-
-        case "admin":
-                try:
-                    db=Database()
-                    info=db.isAdmin(request.session["user_id"])
-                    if info:
-                        funcion = kwargs["funcion"]
-                        return funcion(request)
-                    return redirect("/") #aca se podria hacer un HTML que diga que no tiene permisos
-                except:
-                    return redirect("/login")
-
-        case "anybody":
+    if auth == "user":
+        try:
+            user_id = request.session["user_id"]
             funcion = kwargs["funcion"]
-            try:
-                user_id = request.session["user_id"]
-                return funcion(request, True)
-            except:
-                return funcion(request, False)
+            return funcion(request)
+        except:
+            return redirect("/login")
 
-        case "anybodySimple":
-            view = kwargs["view"]
-            admin = esAdmin(request)
-            try:
-                user_id = request.session["user_id"]
-                return render(request, view, {"user_id":True, "user_admin":admin})
-            except:
-                return render(request, view)
-
-        case "notLogged":
-            try:
-                user_id = request.session["user_id"]
-                return redirect("/")
-            except:
+    elif auth == "admin":
+        try:
+            db=Database()
+            info=db.isAdmin(request.session["user_id"])
+            if info:
                 funcion = kwargs["funcion"]
                 return funcion(request)
+            return redirect("/") #aca se podria hacer un HTML que diga que no tiene permisos
+        except:
+            return redirect("/login")
+
+    elif auth == "anybody":
+        funcion = kwargs["funcion"]
+        try:
+            user_id = request.session["user_id"]
+            return funcion(request, True)
+        except:
+            return funcion(request, False)
+
+    elif auth == "anybodySimple":
+        view = kwargs["view"]
+        admin = esAdmin(request)
+        try:
+            user_id = request.session["user_id"]
+            return render(request, view, {"user_id":True, "user_admin":admin})
+        except:
+            return render(request, view)
+            
+    elif auth == "notLogged":
+        try:
+            user_id = request.session["user_id"]
+            return redirect("/")
+        except:
+            funcion = kwargs["funcion"]
+            return funcion(request)
+
+    # match auth:
+    #     case "user":
+    #         try:
+    #             user_id = request.session["user_id"]
+    #             funcion = kwargs["funcion"]
+    #             return funcion(request)
+    #         except:
+    #             return redirect("/login")
+
+    #     case "admin":
+    #             try:
+    #                 db=Database()
+    #                 info=db.isAdmin(request.session["user_id"])
+    #                 if info:
+    #                     funcion = kwargs["funcion"]
+    #                     return funcion(request)
+    #                 return redirect("/") #aca se podria hacer un HTML que diga que no tiene permisos
+    #             except:
+    #                 return redirect("/login")
+
+    #     case "anybody":
+    #         funcion = kwargs["funcion"]
+    #         try:
+    #             user_id = request.session["user_id"]
+    #             return funcion(request, True)
+    #         except:
+    #             return funcion(request, False)
+
+    #     case "anybodySimple":
+    #         view = kwargs["view"]
+    #         admin = esAdmin(request)
+    #         try:
+    #             user_id = request.session["user_id"]
+    #             return render(request, view, {"user_id":True, "user_admin":admin})
+    #         except:
+    #             return render(request, view)
+
+    #     case "notLogged":
+    #         try:
+    #             user_id = request.session["user_id"]
+    #             return redirect("/")
+    #         except:
+    #             funcion = kwargs["funcion"]
+    #             return funcion(request)
 
 
 def adminView(request):
