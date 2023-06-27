@@ -129,9 +129,9 @@ STATICFILES_DIRS = [
 
 CORS_ORIGIN_ALLOW_ALL = False  # Permitir todas las origenes (o ajustar a True si lo deseas)
 CORS_ORIGIN_WHITELIST = [
-    'http://railway.app',  # Agrega aquí los dominios permitidos
+    'https://cinema-python-production.up.railway.app/',  # Agrega aquí los dominios permitidos
+    'http://cinema-python-production.up.railway.app/'
 ]
 CSRF_MIDDLEWARE = [
     'corsheaders.middleware.CorsPostCsrfMiddleware',
-    ...
 ]
