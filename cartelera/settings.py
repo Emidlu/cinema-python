@@ -80,7 +80,7 @@ DATABASES = {
     }
 }
 
-CSRF_TRUSTED_ORIGINS = ['cinema-python-production.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://cinema-python-production.up.railway.app', 'http://cinema-python-production.up.railway.app']
 
 
 # Password validation
